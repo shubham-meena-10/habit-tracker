@@ -7,6 +7,9 @@ import { addDays } from '../utils/date';
 const CHUNK_DAYS = 700;          // the server allows up to 800 days per request
 const EMPTY = [];
 const remoteCache = new Map();   // key -> entries older than the local cache (they never change in the app)
+export function clearHistoryCache() {
+  remoteCache.clear();
+}
 
 async function fetchRange(habitId, from, to) {
   const out = [];

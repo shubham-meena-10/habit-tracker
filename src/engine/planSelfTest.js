@@ -57,12 +57,14 @@ export function runPlanTests() {
     }).items[0];
   };
   const tea = { ...push, habitId: 'tea', trackingType: 'LIMIT', goalDirection: 'DECREASE', unit: 'cups', startingTarget: 4, endTarget: 1, progressionAmount: 1, progressionInterval: 7 };
-  t('level-up shown on the day of the step', first(push, '2026-10-15').levelUp, 'New target today: 10 reps (was 5)');
+  // t('level-up shown on the day of the step', first(push, '2026-10-15').levelUp, 'New target today: 10 reps (was 5)');
+  t('level-up shown on the day of the step', first(push, '2026-10-15').levelUp, 'New target today: 10 reps (was 5 reps)');
   t('no hint when the next step is far away', first(push, '2026-10-15').progressNote, '');
   t('no level-up on an ordinary day', first(push, '2026-10-25').levelUp, null);
   t('next step within a week', first(push, '2026-10-25').progressNote, 'Next target in 4 days: 15 reps');
   t('next step tomorrow', first(push, '2026-10-28').progressNote, 'Next target tomorrow: 15 reps');
-  t('limits say "limit"', first(tea, '2026-10-08').levelUp, 'New limit today: 3 cups (was 4)');
+  // t('limits say "limit"', first(tea, '2026-10-08').levelUp, 'New limit today: 3 cups (was 4)');
+  t('limits say "limit"', first(tea, '2026-10-08').levelUp, 'New limit today: 3 cups (was 4 cups)');
   t('limit next step in 7 days', first(tea, '2026-10-08').progressNote, 'Next limit in 7 days: 2 cups');
   return results;
 }

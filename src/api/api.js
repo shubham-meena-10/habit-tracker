@@ -1,4 +1,5 @@
-import { CONFIG, isApiConfigured } from '../config';
+// import { CONFIG, isApiConfigured } from '../config';
+import { CONFIG, getApiToken, isApiConfigured } from '../config';
 
 /**
  * kind:
@@ -58,7 +59,8 @@ export async function request(action, data = {}, { requestId, timeoutMs } = {}) 
       res = await fetch(CONFIG.API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ token: CONFIG.API_TOKEN, action, requestId, data }),
+        // body: JSON.stringify({ token: CONFIG.API_TOKEN, action, requestId, data }),
+         body: JSON.stringify({ token: getApiToken(), action, requestId, data }),
         redirect: 'follow',
         signal: controller.signal,
       });

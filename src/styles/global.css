@@ -1321,3 +1321,77 @@ a.btn {
   text-decoration: none;
   font-weight: 600;
 }
+
+/* ---------- Phase 13: PWA, reminders, backup ---------- */
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-color: var(--primary);
+}
+.update-banner p {
+  margin: 2px 0 0;
+}
+
+.toast-stack {
+  position: fixed;
+  z-index: 30;
+  left: 12px;
+  right: 12px;
+  margin: 0 auto;
+  max-width: 520px;
+  top: calc(env(safe-area-inset-top) + 8px);
+  display: grid;
+  gap: 8px;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--text);
+  color: var(--bg);
+}
+.toast__text {
+  flex: 1;
+  min-width: 0;
+}
+.toast a {
+  color: inherit;
+  font-weight: 600;
+}
+.toast .btn {
+  background: transparent;
+  color: inherit;
+  border-color: currentColor;
+  min-width: 36px;
+  padding: 0 8px;
+}
+
+
+
+
+
+
+
+/* ---------- Phase 14: contrast, focus, motion ---------- */
+/* Darker status colours so small text reaches 4.5:1 on light backgrounds, lighter ones for dark mode. */
+:root { --success: #15803d; --warn: #b45309; --danger: #dc2626; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) { --success: #4ade80; --warn: #fbbf24; --danger: #f87171; }
+}
+:root[data-theme='dark'] { --success: #4ade80; --warn: #fbbf24; --danger: #f87171; color-scheme: dark; }
+:root[data-theme='light'] { color-scheme: light; }
+
+.content:focus { outline: none; }
+.skip-link { position: fixed; left: 8px; top: -64px; z-index: 50; }
+.skip-link:focus { top: calc(env(safe-area-inset-top) + 8px); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+}

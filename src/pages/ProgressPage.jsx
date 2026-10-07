@@ -1,19 +1,3 @@
-// import PageHeader from '../components/common/PageHeader';
-// import EmptyState from '../components/common/EmptyState';
-
-// export default function ProgressPage() {
-//   return (
-//     <>
-//       <PageHeader title="Progress" />
-//       <EmptyState
-//         title="Nothing to show yet"
-//         message="Your progress will appear here once you start tracking."
-//       />
-//     </>
-//   );
-// }
-
-
 import { useState } from 'react';
 import PageHeader from '../components/common/PageHeader';
 import EmptyState from '../components/common/EmptyState';

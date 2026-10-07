@@ -31,7 +31,7 @@ export function createEntry({ habit, delta, source = 'tap', durationSec = null, 
 
 /** Shape sent to the server (updatedAt is server-owned). */
 export function entryToWire(entry) {
+  // eslint-disable-next-line no-unused-vars
   const { updatedAt, ...wire } = entry;
-  console.log('%c [ updatedAt ]', 'font-size:13px; background:pink; color:#bf2c9f;', updatedAt)
   return wire;
 }

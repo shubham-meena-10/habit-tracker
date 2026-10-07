@@ -1,26 +1,3 @@
-// import PageHeader from '../components/common/PageHeader';
-// import EmptyState from '../components/common/EmptyState';
-// import { greeting, todayStr, formatLongDate } from '../utils/date';
-// import { Link } from 'react-router';
-
-// export default function HomePage() {
-//   const today = todayStr();
-//   return (
-//     <>
-//       <PageHeader title={`${greeting()} 👋`} subtitle={formatLongDate(today)} />
-//       <EmptyState
-//         title="Start building your routine"
-//         message="Create your first habit to see today's progress here."
-//       >
-//         {/* <button className="btn btn--primary" disabled>
-//           + Add Habit (Phase 5)
-//         </button> */}
-//         <Link className="btn btn--primary" to="/habits/new">+ Add Habit</Link>
-//       </EmptyState>
-//     </>
-//   );
-// }
-
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useTimers } from "../hooks/useTimers";

@@ -205,3 +205,38 @@ export async function saveDayWithOp(date, closed, op) {
   await Promise.all([store.put(day), tx.objectStore('queue').add(op), tx.done]);
   return day;
 }
+
+/**
+ * Empties the cached server data so the next full sync re-downloads it.
+ * The sync queue, rejected-operations list, device id and running timers are kept.
+ */
+export async function clearLocalCache() {
+  const stores = ['habits', 'categories', 'targetChanges', 'entries', 'dayStatus', 'settings'];
+  const tx = (await getDb()).transaction([...stores, 'meta'], 'readwrite');
+  const meta = tx.objectStore('meta');
+  await Promise.all([
+    ...stores.map((s) => tx.objectStore(s).clear()),
+    ...['lastSync', 'cacheFrom', 'remindersSent'].map((k) => meta.delete(k)),
+    tx.done,
+  ]);
+}
+
+
+
+/**
+ * Wipes EVERYTHING on this device: cached data, the sync queue, rejected ops, timers, reminder history.
+ * Kept: deviceId, API token, reminders on/off switch.
+ */
+export async function clearEverythingLocal() {
+  const db = await getDb();
+  const stores = ['habits', 'categories', 'targetChanges', 'entries', 'dayStatus', 'settings', 'queue', 'failed'];
+  const keep = new Set(['deviceId', 'apiToken', 'remindersOn']);
+  const tx = db.transaction([...stores, 'meta'], 'readwrite');
+  const meta = tx.objectStore('meta');
+  const keys = await meta.getAllKeys();
+  await Promise.all([
+    ...stores.map((s) => tx.objectStore(s).clear()),
+    ...keys.filter((k) => !keep.has(k)).map((k) => meta.delete(k)),
+    tx.done,
+  ]);
+}

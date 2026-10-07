@@ -1,17 +1,15 @@
 {
-  "name": "library-management-system-client",
+  "name": "habit-tracker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "env:setup": "shx cp environments/.env.dev.example environments/.env.dev && shx cp environments/.env.prod.example environments/.env.prod && shx cp environments/.env.example environments/.env",
-    "dev": "vite --mode dev",
-    "start:dev": "vite --mode dev",
-    "build:dev": "vite build --mode dev",
-    "start:prod": "vite --mode prod",
-    "build:prod": "vite build --mode prod",
+    "dev": "vite dev",
+    "start:dev": "vite dev",
+    "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "idb": "^8.0.3",
@@ -23,6 +21,7 @@
     "@eslint/js": "^9.15.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@vite-pwa/assets-generator": "^2.0.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^9.15.0",
     "eslint-plugin-react": "^7.37.2",
@@ -31,6 +30,7 @@
     "globals": "^15.12.0",
     "sass-embedded": "^1.83.0",
     "shx": "^0.3.4",
-    "vite": "^6.0.1"
+    "vite": "^6.0.1",
+    "vite-plugin-pwa": "^2.0.0"
   }
 }

@@ -13,6 +13,7 @@ import { requestSync } from "../services/syncService";
 import { createEntry, entryToWire } from "../services/entryService";
 import * as habitsApi from "../api/habitsApi";
 import { newId } from "../utils/id";
+import { loadStoredToken } from "../services/tokenService";
 
 const AppStateContext = createContext(null);
 const AppActionsContext = createContext(null);
@@ -110,6 +111,7 @@ export function AppProvider({ children }) {
 
       const result = await requestSync({ forceFull: full });
       try {
+        await loadStoredToken();
         await reload();
       } catch {
         /* keep current state */
@@ -293,6 +295,25 @@ export function AppProvider({ children }) {
         await db.clearFailed();
         await refreshCounts();
       },
+      /** Refuses to clear anything unless the server answers first. Unsynced actions stay in the queue. */
+      async resetLocalCache() {
+        await dashboardApi.ping();
+        await db.clearLocalCache();
+        mutations.current += 1;
+        await reload();
+        return runSyncRef.current({ full: true });
+      },
+
+      /** Resets the Sheet to defaults, then wipes this device and re-downloads. Server goes first, so a failure changes nothing. */
+      async factoryReset() {
+        await dashboardApi.resetAll();
+        await db.clearEverythingLocal();
+        mutations.current += 1;
+        attempt.current = 0;
+        await reload();
+        return runSyncRef.current({ full: true });
+      },
+
       // ----- online-only edits: the server validates, then we store its authoritative result -----
       async saveHabit(habit) {
         const res = await habitsApi.saveHabit(habit);

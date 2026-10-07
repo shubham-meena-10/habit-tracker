@@ -8,6 +8,7 @@ import { runPlanTests } from "./planSelfTest";
 import { runHistoryTests } from "./historySelfTest";
 import { runCalendarTests } from "./calendarSelfTest";
 import { runCheckinTests } from "./checkinSelfTest";
+import { runDeviceTests } from "./deviceSelfTest";
 
 export function runEngineTests() {
   const results = [];
@@ -192,5 +193,6 @@ export function runEngineTests() {
     ...runHistoryTests(),
     ...runCalendarTests(),
     ...runCheckinTests(),
+    ...runDeviceTests(),
   ];
 }
